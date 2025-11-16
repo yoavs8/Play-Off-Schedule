@@ -1,24 +1,8 @@
-// import { Button, TextField } from "@mui/material";
-// import { useEffect, useRef, useState } from "react";
-// import * as t from "io-ts";
-// import * as D from "io-ts/Decoder";
-// import { pipe } from "fp-ts/function";
-// import { fold } from "fp-ts/Either";
-
-
-// interface alliance {
-//   team1: string;
-//   team2: string;
-//   team3: string;
-// }
-// interface match {
-//   currRound: number;
-//   roundsTillPlay: number;
-//   red: alliance;
-//   blue: alliance;
-// }
-
-// const App: React.FC = () => {
+import { urlMatches } from "../endpoints/common/MatchSimple";
+import { endpointResultToDict, fetchData } from "../services/CreateMatch";
+const a = endpointResultToDict(await fetchData(urlMatches("2025isios")), "event_key");
+const b = await fetchData(urlMatches("2025isios"));
+const App: React.FC = () => {
 //   const [Redteam, setRedteam] = useState<alliance>({
 //     team1: "a",
 //     team2: "b",
@@ -36,10 +20,12 @@
 //     blue: Blueteam,
 //   });
 //   const curr = Object.keys(match).map;
-//   return (
-//     <>
+
+    console.log(b);    
+  return (
+    <>
      
-//     </>
-//   );
-// };
-// export default App;
+    </>
+  );
+};
+export default App;

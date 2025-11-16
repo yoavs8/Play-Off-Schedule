@@ -1,70 +1,63 @@
 import { useEffect, useRef, useState } from "react";
 import * as t from "io-ts";
-import * as D from "io-ts/Decoder";
-import { pipe } from "fp-ts/function";
-import { fold } from "fp-ts/Either";
+import { urlMatches } from "../endpoints/common/MatchSimple";
+import { response } from "express";
 
-const alliance = t.type({
-  team1: t.string,
-  team2: t.string,
-  team3: t.string,
-});
-const match = t.type({
-  currRound: t.number,
-  roundsTillPlay: t.number,
-  red: alliance,
-  blue: alliance,
-});
+const now: Date = new Date();
 
-type matchType = typeof match._A;
-type AllianceType = typeof alliance._A;
+interface alliance {
+  team1: string;
+  team2: string;
+  team3: string;
+}
 
-const convert = (json: any) => {
-  const newFile = {
-    currRound: json.CurrRound,
-    roundsTillPlay: json.tillPlay,
-    red: json.redTeam,
-    blue: json.blueTeam,
-  } satisfies matchType;
-  return newFile;
+interface match {
+  currRound: number;
+  roundsTillPlay: number;
+  red: alliance;
+  blue: alliance;
+}
+
+const apiKey = "YOUR_API_KEY";
+//const apiKey = "JSU19uyptEfTjmhbQtYMbmXoOjc60kydzpePFk3m7QRKKbBUadASpkDHO6cpwuGk";
+
+export const fetchData = (url: string) => {
+  return fetch(url, {
+    method: "GET",
+    headers: {
+      "X-TBA-Auth-Key": apiKey,
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+      return data;
+    })
+    .catch((error) => console.error("Error:", error));
 };
-const createMatch: React.FC = () => {
-  const [roundsTill, setroundsTill] = useState<number>();
-  const [Redteam, setRedteam] = useState<AllianceType>({
-    team1: "a",
-    team2: "b",
-    team3: "c",
-  });
-  const [Blueteam, setBlueteam] = useState<AllianceType>({
-    team1: "d",
-    team2: "e",
-    team3: "f",
-  });
-  const [match, setmatch] = useState({
-    currRound: 0,
-    roundsTillPlay: roundsTill,
-    red: Redteam,
-    blue: Blueteam,
-  });
-  const curr = Object.entries(Redteam);
-  return (
-    <>
-      <h1>
-        rounds Till the game: {roundsTill}
-        <br></br>
-        {curr.map(([key, value]) => {
-          console.log(key);
-          console.log(value);
-          return (
-            <>
-              {key}: {value}
-              {"\n"}
-              <br></br>
-            </>
-          );
-        })}
-      </h1>
-    </>
+
+type TranslateValue<
+  Value extends object,
+  Key extends keyof Value = keyof Value
+> = Value[Key] extends string | number ? Key : never;
+
+export const endpointResultToDict = <Value extends object>(
+  values: Value[],
+  idKey: TranslateValue<Value>
+) => {
+  return values.reduce(
+    (acc, value) => ({
+      ...acc,
+      [value[idKey] as string]: value,
+    }),
+    {}
   );
 };
-export default createMatch;
+
+
