@@ -19,5 +19,6 @@ export const MatchSimple = t.type({//did
 });
 export type MatchesSimpleType = typeof MatchSimple._A;
 
-export const urlMatches = (event_key:string)=> `https://www.thebluealliance.com/api/v3//event/${event_key}/matches/simple`;
+
+export const urlMatches = (event_key:string)=> `https://www.thebluealliance.com/api/v3/event/${event_key}/matches/simple`;
 

@@ -12,4 +12,4 @@ export const simpleTeamsInEvent = t.type({//did
 });
 export type TeamsInEventType = typeof simpleTeamsInEvent._A;
 
-export const urlTeamsInEvent = (event_key:string)=>`https://www.thebluealliance.com/api/v3//event/${event_key}/teams/simple`;
+export const urlTeamsInEvent = (event_key:string)=>`https://www.thebluealliance.com/api/v3/event/${event_key}/teams/simple`;
