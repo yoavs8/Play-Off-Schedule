@@ -1,10 +1,10 @@
-interface alliance {
+export interface alliance {
   team1: string;
   team2: string;
   team3: string;
 }
 
-interface match {
+export interface match {
   currRound: number;
   roundsTillPlay: number;
   red: alliance;

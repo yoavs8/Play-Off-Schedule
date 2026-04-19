@@ -26,29 +26,11 @@ const App: React.FC = () => {
       ? endpointResultToDict(fetchedData, "event_key")
       : null;
 
-  //   const [Redteam, setRedteam] = useState<alliance>({
-  //     team1: "a",
-  //     team2: "b",
-  //     team3: "c",
-  //   });
-  //   const [Blueteam, setBlueteam] = useState<alliance>({
-  //     team1: "d",
-  //     team2: "e",
-  //     team3: "f",
-  //   });
-  //   const [match, setmatch] = useState({
-  //     currRound: 0,
-  //     roundsTillPlay: 2,
-  //     red: Redteam,
-  //     blue: Blueteam,
-  //   });
-  //   const curr = Object.keys(match).map;
-
   console.log(fetchedData);
   return (
     <>
       <div>App loaded</div>
-      <pre>{JSON.stringify(fetchedData)}</pre>
+      <pre>{JSON.stringify(finalDict ?? fetchedData)}</pre>
     </>
   );
 };

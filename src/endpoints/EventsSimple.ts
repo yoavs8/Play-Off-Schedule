@@ -1,5 +1,5 @@
 import * as t from "io-ts";
-import { numberOrNull, stringOrNull } from "../utils/TypeUtils";
+import { stringOrNull } from "../utils/TypeUtils";
 
 export const SimpleEventsInYear = t.type({
   //did

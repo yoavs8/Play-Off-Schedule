@@ -1,12 +1,11 @@
 import express from "express";
-import { STATUS_CODES } from "http";
 import ViteExpress from "vite-express";
 
 const app = express();
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
 const  statusGood=200;
-const  statusBad=200;
+const  statusBad=500;
 
 app.post("/fetch/:url", async (req, res) => {
   try {
